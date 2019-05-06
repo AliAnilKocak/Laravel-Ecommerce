@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-            Merhaba
+
+            @foreach ($isimler as $isim)
+                {{$isim.($isim !== end($isimler) ? ',' : '')}}
+            @endforeach
     </body>
 </html>

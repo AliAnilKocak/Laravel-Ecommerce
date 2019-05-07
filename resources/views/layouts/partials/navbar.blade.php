@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -28,7 +28,7 @@
                 <li><a href="#">Oturum Aç</a></li>
                 <li><a href="#">Kaydol</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Profil <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Profil </span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Siparişlerim</a></li>
                         <li role="separator" class="divider"></li>

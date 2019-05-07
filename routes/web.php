@@ -8,8 +8,10 @@ Route::get('/category/{slug_categoryname}', 'CategoryController@index')->name('c
 Route::get('/product/{slug_productname}', 'ProductController@index')->name('product');
 
 
+Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
 
-Route::view('/sepet', 'sepet');
+
+
 
 
 

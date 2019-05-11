@@ -13,14 +13,58 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         DB::table('category')->truncate();
-        DB::table('category')->insert([
+
+        $id = DB::table('category')->insertGetId([
             'name' => 'Elektronik',
             'slug' => 'Elektronik'
         ]);
+
         DB::table('category')->insert([
+            'name' => 'Bilgisayar/Tablet',
+            'slug' => 'bilgisayar-tablet',
+            'parent_id' => $id
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Foto/Kamera',
+            'slug' => 'foto-kamera',
+            'parent_id' => $id
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Telefon',
+            'slug' => 'telefon',
+            'parent_id' => $id
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Beyaz Eşya',
+            'slug' => 'beyaz-esya',
+            'parent_id' => $id
+        ]);
+
+        $idBook =   DB::table('category')->insertgetId([
             'name' => 'Kitap',
             'slug' => 'Kitap'
         ]);
+        DB::table('category')->insert([
+            'name' => 'Roman',
+            'slug' => 'roman',
+            'parent_id' => $idBook
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Tarih',
+            'slug' => 'tarih',
+            'parent_id' => $idBook
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Kişisel Gelişim',
+            'slug' => 'kisisel-gelisim',
+            'parent_id' => $idBook
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Ders Kitabı',
+            'slug' => 'ders-kitabı',
+            'parent_id' => $idBook
+        ]);
+
         DB::table('category')->insert([
             'name' => 'Dergi',
             'slug' => 'Dergi'

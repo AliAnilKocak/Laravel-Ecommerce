@@ -11,4 +11,10 @@ class Category extends Model
     protected $table = "category";
   //  protected $fillable = ['name','slug']; //Add column permission
     protected $guarded = []; //this all columns are addable
+
+    public function products(){
+        return $this->belongsToMany('App\Models\Product','category_product');
+        //Bir kategoriye ait ürünleri getirir. belongToMany M:M ilişkiyi işaret eder.
+    }
+
 }

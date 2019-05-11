@@ -10,4 +10,10 @@ class Product extends Model
     use SoftDeletes;
     protected $table = "product";
     protected $guarded = [];
+
+
+    public function categories(){
+        return $this->belongsToMany('App\Models\Category','category_product');
+        //Bir ürüne ait kategorileri getirir. belongToMany M:M ilişkiyi işaret eder.
+    }
 }

@@ -12,8 +12,14 @@ class Product extends Model
     protected $guarded = [];
 
 
-    public function categories(){
-        return $this->belongsToMany('App\Models\Category','category_product');
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'category_product');
         //Bir ürüne ait kategorileri getirir. belongToMany M:M ilişkiyi işaret eder.
+    }
+
+    public function detail()
+    {
+        return $this->hasOne('App\Models\ProductDetails');
     }
 }

@@ -24,14 +24,15 @@
                     @endif
 
                 </div>
+                {{request()->has('order') ? $products->appends(['order'=>request('order')])->links() : $products->links()}}
             </div>
         </div>
         <div class="col-md-9">
             <div class="products bg-content">
                 @if (count($products)>0)
                 Sırala
-                <a href="#" class="btn btn-default">Çok Satanlar</a>
-                <a href="#" class="btn btn-default">Yeni Ürünler</a>
+                <a href="?order=mostsellers" class="btn btn-default">Çok Satanlar</a>
+                <a href="?order=featured" class="btn btn-default">Yeni Ürünler</a>
                 <hr>
 
                 @endif

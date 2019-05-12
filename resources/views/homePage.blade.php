@@ -19,29 +19,21 @@
         <div class="col-md-6">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+
+                    @for ($i = 0; $i < count($products_slider); $i++) <li data-target="#carousel-example-generic"
+                        data-slide-to="0" class="{{$i == 0 ? 'active' : ''}}">
+                        </li>
+                        @endfor
                 </ol>
                 <div class="carousel-inner" role="listbox">
-                    <div class="item active">
+                    @foreach ($products_slider as $index => $product_detail)
+                    <div class="item {{$index==0 ? 'active' : ''}}">
                         <img src="http://lorempixel.com/640/400/food/1" alt="...">
                         <div class="carousel-caption">
-                            Slide 1
+                            {{$product_detail->product->name}}
                         </div>
                     </div>
-                    <div class="item">
-                        <img src="http://lorempixel.com/640/400/food/2" alt="...">
-                        <div class="carousel-caption">
-                            Slide 2
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="http://lorempixel.com/640/400/food/3" alt="...">
-                        <div class="carousel-caption">
-                            Slide 3
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -57,7 +49,8 @@
             <div class="panel panel-default" id="sidebar-product">
                 <div class="panel-heading">Günün Fırsatı</div>
                 <div class="panel-body">
-                    <a href="#">
+                    <a href="{{route('product',$product_day_opportunity->slug)}}">
+                        {{$product_day_opportunity->name}}
                         <img src="http://lorempixel.com/400/485/food/1" class="img-responsive">
                     </a>
                 </div>
@@ -71,26 +64,20 @@
             <div class="panel-heading">Öne Çıkan Ürünler</div>
             <div class="panel-body">
                 <div class="row">
+
+                    @foreach ($products_featured as $product_detail)
                     <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/1"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
+                        <a href="{{route('product',$product_detail->slug)}}"><img
+                                src="http://lorempixel.com/400/400/food/1"></a>
+                        <p><a
+                                href="{{route('product',$product_detail->slug)}}">{{$product_detail->name}}</a>
+                        </p>
+                        <p class="price">{{$product_detail->price}} ₺</p>
                     </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/2"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/3"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/4"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
+                    @endforeach
+
+
+
                 </div>
             </div>
         </div>
@@ -101,26 +88,16 @@
             <div class="panel-heading">Çok Satan Ürünler</div>
             <div class="panel-body">
                 <div class="row">
+                    @foreach ($products_bestselling as $product_detail)
                     <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/1"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/2"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/3"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/4"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
+                            <a href="{{route('product',$product_detail->slug)}}"><img
+                                    src="http://lorempixel.com/400/400/food/1"></a>
+                            <p><a
+                                    href="{{route('product',$product_detail->slug)}}">{{$product_detail->name}}</a>
+                            </p>
+                            <p class="price">{{$product_detail->price}} ₺</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -130,26 +107,16 @@
             <div class="panel-heading">İndirimli Ürünler</div>
             <div class="panel-body">
                 <div class="row">
+                    @foreach ($products_reduced as $product_detail)
                     <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/1"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/2"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/3"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
-                    <div class="col-md-3 product">
-                        <a href="#"><img src="http://lorempixel.com/400/400/food/4"></a>
-                        <p><a href="#">Ürün adı</a></p>
-                        <p class="price">129 ₺</p>
-                    </div>
+                            <a href="{{route('product',$product_detail->slug)}}"><img
+                                    src="http://lorempixel.com/400/400/food/1"></a>
+                            <p><a
+                                    href="{{route('product',$product_detail->slug)}}">{{$product_detail->name}}</a>
+                            </p>
+                            <p class="price">{{$product_detail->price}} ₺</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

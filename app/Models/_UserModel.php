@@ -1,0 +1,21 @@
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class _UsersModel extends Authenticatable
+{
+
+    use SoftDeletes;
+    protected $table = 'user';
+    protected $fillable = [
+        'full_name', 'email', 'password','activation_key','is_active'
+    ];
+
+    protected $hidden = [
+        'password', 'activation_key',
+    ];
+}

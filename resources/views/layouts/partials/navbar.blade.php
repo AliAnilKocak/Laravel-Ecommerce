@@ -17,7 +17,8 @@
             <form class="navbar-form navbar-left" action="{{route('product_search')}}" method="POST">
                 {{csrf_field() }}
                 <div class="input-group">
-                <input type="text" name="searched" id="navbar-search" value="{{old('searched')}}" class="form-control" placeholder="Ara">
+                    <input type="text" name="searched" id="navbar-search" value="{{old('searched')}}"
+                        class="form-control" placeholder="Ara">
                     <span class="input-group-btn">
                         <button type="submit" class="btn btn-default">
                             <i class="fa fa-search"></i>
@@ -28,8 +29,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><i class="fa fa-shopping-cart"></i> Sepet <span class="badge badge-theme">5</span></a>
                 </li>
+                @guest
                 <li><a href="#">Oturum Aç</a></li>
                 <li><a href="#">Kaydol</a></li>
+                @endguest
+
+                @auth
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                         aria-expanded="false"> Profil </span></a>
@@ -39,6 +44,7 @@
                         <li><a href="#">Çıkış</a></li>
                     </ul>
                 </li>
+                @endauth
             </ul>
         </div>
     </div>

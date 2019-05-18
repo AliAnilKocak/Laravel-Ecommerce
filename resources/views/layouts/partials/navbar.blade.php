@@ -41,7 +41,12 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">Siparişlerim</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Çıkış</a></li>
+                        <li><a href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Çıkış</a>
+                            <form style="display: none" method="POST" id="logout-form" action="{{route('user.logout')}}">
+                         {{csrf_field()}}
+                           </form>
+                        </li>
                     </ul>
                 </li>
                 @endauth

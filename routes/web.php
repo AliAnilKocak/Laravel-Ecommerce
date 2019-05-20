@@ -10,7 +10,10 @@ Route::get('/product/{slug_productname}', 'ProductController@index')->name('prod
 Route::post('/search', 'ProductController@search')->name('product_search');
 Route::get('/search', 'ProductController@search')->name('product_search');
 
-Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
+Route::group(['prefix' => 'shoppingcart'], function () {
+    Route::get('/', 'ShoppingCartController@index')->name('shoppingcart');
+    Route::post('/add', 'ShoppingCartController@add')->name('shoppingcart.add');
+});
 
 //Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart')->middleware('auth');
 //tek bir route için auth middleware kullanımı

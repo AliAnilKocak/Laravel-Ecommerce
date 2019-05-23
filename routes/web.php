@@ -15,6 +15,7 @@ Route::group(['prefix' => 'shoppingcart'], function () {
     Route::post('/add', 'ShoppingCartController@add')->name('shoppingcart.add');
     Route::delete('/remove/{rowIdz}', 'ShoppingCartController@remove')->name('shoppingcart.remove');
     Route::delete('/removeall', 'ShoppingCartController@remove_all')->name('shoppingcart.remove_all');
+    Route::patch('/update/{rowId}', 'ShoppingCartController@update')->name('shoppingcart.update');
 });
 
 //Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart')->middleware('auth');

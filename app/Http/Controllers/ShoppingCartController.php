@@ -43,4 +43,13 @@ class ShoppingCartController extends Controller
             ->with('message', 'Sepet boşaltıldı..')
             ->with('message_type', 'success');
     }
+
+    public function update($rowId){
+        Cart::update($rowId,request('count'));
+
+        session()->flash('message_type','success');
+        session()->flash('message','Adet bilgisi güncellendi');
+
+        return response()->json(['success'=>true]);
+    }
 }

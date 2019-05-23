@@ -20,7 +20,8 @@
                 </td>
                 <td>{{$productCartItem->name}}
 
-                    <form style="margin-top: 20px;" action="{{route('shoppingcart.remove',$productCartItem->rowId)}}" method="post">
+                    <form style="margin-top: 20px;" action="{{route('shoppingcart.remove',$productCartItem->rowId)}}"
+                        method="post">
                         {{ csrf_field() }}
                         {{method_field('DELETE')}}
 
@@ -33,9 +34,9 @@
                 <td>{{$productCartItem->price}} TL</td>
 
                 <td>
-                    <a href="#" class="btn btn-xs btn-default">-</a>
+                    <a href="#" data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty-1}}" class="btn btn-xs btn-default product-count-increment">-</a>
                     <span style="padding: 10px 20px">{{$productCartItem->qty}}</span>
-                    <a href="#" class="btn btn-xs btn-default">+</a>
+                    <a data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty+1}}"  href=" #" class="btn btn-xs btn-default product-count-decrement">+</a>
                 </td>
 
                 <td class="text-right">

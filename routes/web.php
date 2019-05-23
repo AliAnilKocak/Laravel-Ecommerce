@@ -13,6 +13,8 @@ Route::get('/search', 'ProductController@search')->name('product_search');
 Route::group(['prefix' => 'shoppingcart'], function () {
     Route::get('/', 'ShoppingCartController@index')->name('shoppingcart');
     Route::post('/add', 'ShoppingCartController@add')->name('shoppingcart.add');
+    Route::delete('/remove/{rowIdz}', 'ShoppingCartController@remove')->name('shoppingcart.remove');
+    Route::delete('/removeall', 'ShoppingCartController@remove_all')->name('shoppingcart.remove_all');
 });
 
 //Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart')->middleware('auth');

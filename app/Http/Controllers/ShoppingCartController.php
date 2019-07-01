@@ -87,6 +87,18 @@ class ShoppingCartController extends Controller
             return response()->json(['success' => false]);
         }
 
+        if (auth()->check) {
+            $active_shoppingcart_id = session('active_shoppingcart_id');
+            $cartItem =  Cart::get($rowId);
+            if (request('count') == 0) {
+                ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->where('product_id', $cartItem->id)->delete();
+            } else {
+                ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->where('product_id', $cartItem->id)->update(
+                    ['count' => request('count')]
+                );
+            }
+        }
+
         Cart::update($rowId, request('count'));
 
         session()->flash('message_type', 'success');

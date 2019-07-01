@@ -12,7 +12,7 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category')->truncate();
+       // DB::table('category')->truncate();
 
 
         $id = DB::table('category')->insertGetId([

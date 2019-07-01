@@ -10,5 +10,6 @@ class ShoppingCart extends Model
     use SoftDeletes;
     protected $table = "shoppingcart";
 
-    protected $guard = [];
+    protected $fillable = ['user_id'];
+    //protected $guard = [];
 }

@@ -36851,24 +36851,6 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$('.product-count-increment, .product-count-decrement').click(function () {
-  var id = $(this).attr('data-id'); //view kısmında belirttik
-
-  var count = $(this).attr('data-count');
-  alert("sdf");
-  $.ajax({
-    type: 'PATCH',
-    url: '/shoppingcart/update/' + id,
-    data: {
-      count: count
-    },
-    success: function success() {
-      //if(result == 'success') Buradaki yukarıdan gelen result değişkeni shopping cart controler içerisindeki update moetodunun içindeki
-      //response()->json(['success'=>true]) kısmından gelebilmektedir.
-      window.location.href = '/shoppingcart';
-    }
-  });
-});
 
 /***/ }),
 

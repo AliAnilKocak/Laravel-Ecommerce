@@ -34,9 +34,11 @@
                 <td>{{$productCartItem->price}} TL</td>
 
                 <td>
-                    <a href="#" data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty-1}}" class="btn btn-xs btn-default product-count-increment">-</a>
+                    <a href="#" data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty-1}}"
+                        class="btn btn-xs btn-default product-count-increment">-</a>
                     <span style="padding: 10px 20px">{{$productCartItem->qty}}</span>
-                    <a data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty+1}}"  href=" #" class="btn btn-xs btn-default product-count-decrement">+</a>
+                    <a data-id="{{$productCartItem->rowId}}" data-count="{{$productCartItem->qty+1}}" href=" #"
+                        class="btn btn-xs btn-default product-count-decrement">+</a>
                 </td>
 
                 <td class="text-right">
@@ -72,4 +74,27 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('footer')
+<script>
+    $(function(){
+        $('.product-count-increment, .product-count-decrement').click(function() {
+    var id = $(this).attr('data-id'); //view kısmında belirttik
+    var count = $(this).attr('data-count');
+    alert("sdf");
+    $.ajax({
+        type: 'PATCH',
+        url: '{{url('shoppingcart/update')}}/' + id,
+        data: { count: count },
+        success: function() {
+            //if(result == 'success') Buradaki yukarıdan gelen result değişkeni shopping cart controler içerisindeki update moetodunun içindeki
+            //response()->json(['success'=>true]) kısmından gelebilmektedir.
+            window.location.href = '{{route('shoppingcart')}}';
+        }
+    });
+});
+    });
+</script>
 @endsection

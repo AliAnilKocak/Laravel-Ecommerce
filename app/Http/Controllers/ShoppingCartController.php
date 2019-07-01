@@ -64,6 +64,10 @@ class ShoppingCartController extends Controller
     }
     public function remove_all()
     {
+        if (auth()->check()) {
+            $active_shoppingcart_id = session('active_shoppingcart_id');
+            ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->delete();
+        }
         Cart::destroy();
         return redirect()->route('shoppingcart')
             ->with('message', 'Sepet boşaltıldı..')

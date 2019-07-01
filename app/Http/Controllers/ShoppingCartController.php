@@ -36,11 +36,10 @@ class ShoppingCartController extends Controller
                 $active_shoppingcart_id = $active_shoppingcart->id;
                 session()->put('active_shoppingcart_id', $active_shoppingcart_id);
             }
-        ShoppingCartProduct::updateOrCreate( //ilk paremetredeki değerler epğer m-m tablosunda varsa ikinci paremetredikler gibi günceller eğer yoksa ilk vew ikinci paremetreler ile bir satır oluşturur.
-            ['shoppingcart_id'=>$active_shoppingcart_id,'product_id'=>$product->id],
-            [ 'count'=>$cartItem->qty,'price'=>$product->price,'status'=>'Beklemede']
-        );
-
+            ShoppingCartProduct::updateOrCreate( //ilk paremetredeki değerler epğer m-m tablosunda varsa ikinci paremetredikler gibi günceller eğer yoksa ilk vew ikinci paremetreler ile bir satır oluşturur.
+                ['shoppingcart_id' => $active_shoppingcart_id, 'product_id' => $product->id],
+                ['count' => $cartItem->qty, 'price' => $product->price, 'status' => 'Beklemede']
+            );
         }
         return redirect()->route('shoppingcart')
             ->with('message', 'Ürün sepete eklenddi')
@@ -50,6 +49,14 @@ class ShoppingCartController extends Controller
 
     public function remove($rowId)
     {
+
+        if (auth()->check()) {
+            $active_shoppingcart_id = session('active_shoppingcart_id');
+            $cartItem =  Cart::get($rowId);
+            ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->where('product_id', $cartItem->id)->delete();
+        }
+
+
         Cart::remove($rowId);
         return redirect()->route('shoppingcart')
             ->with('message', 'Ürün sepetten kaldırıldı.')

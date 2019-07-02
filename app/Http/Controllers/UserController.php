@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 use App\_UsersModel;
 use App\Mail\UserRegisterMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingCartProduct;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class UserController extends Controller
 {
@@ -68,6 +71,35 @@ class UserController extends Controller
             mesela login isteyen bir sayfaya istek attım. orası login page'e yönlendirilip giriş yaptıktan sonra tekrar önceki
             login isteyen sayfaya yönlendirilmemizi sağlıyor.
             */
+
+
+            $active_shoppingcart_id = ShoppingCart::firstOrCreate(['user_id'=> auth()->id()])->id;
+            session()->put('active_shoppingcart_id', $active_shoppingcart_id);
+            //if (Cart::count() > 0) {
+                error_log(Cart::content());
+                foreach (Cart::content() as $cartItem) {
+                    ShoppingCartProduct::updateOrCreate(
+                        ['shoppingcart_id' => $active_shoppingcart_id, 'product_id' => $cartItem->id],
+                        ['count' => $cartItem->qty, 'price' => $cartItem->price, 'status' => 'Beklemede']
+                    );
+                }
+         //   }
+
+           //Cart::destroy();
+            $shoppingCartProducts = ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->get();
+            error_log($shoppingCartProducts);
+            foreach ($shoppingCartProducts as $itemShoppingCart) {
+                Cart::add(
+                    $itemShoppingCart->product->id,
+                    $itemShoppingCart->product->name,
+                    $itemShoppingCart->count,
+                    $itemShoppingCart->product->price,
+                    [
+                        'slug' => $itemShoppingCart->product->slug
+                    ]
+                );
+            }
+
             return redirect()->intended('/');
         } else {
             $errors = ['email' => 'Hatalı giriş'];

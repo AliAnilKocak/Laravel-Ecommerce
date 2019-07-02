@@ -12,4 +12,9 @@ class ShoppingCart extends Model
 
     protected $fillable = ['user_id'];
     //protected $guard = [];
+
+    public function order()
+    {
+        return $this->hasOne('App\Models\Order');
+    }
 }

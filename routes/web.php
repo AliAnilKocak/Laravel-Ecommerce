@@ -21,8 +21,11 @@ Route::group(['prefix' => 'shoppingcart'], function () {
 //Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart')->middleware('auth');
 //tek bir route için auth middleware kullanımı
 
+
+Route::get('/pay', 'PayController@index')->name('pay');
+
+
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/pay', 'PayController@index')->name('pay');
     Route::get('/sellers', 'SellersController@index')->name('sellers');
     Route::get('/seller/{id}', 'SellersController@detail')->name('seller');
 });

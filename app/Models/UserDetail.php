@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserDetail extends Model
 {
     protected $table = 'user_detail'; //tablonun ismi.
-    protected $timestamps = false; //tarih bilgileri tutumayacak.
+    public $timestamps = false; //tarih bilgileri tutumayacak.
     protected $guarded = []; //tüm alanlara ekleme yapılabilir.
 
 

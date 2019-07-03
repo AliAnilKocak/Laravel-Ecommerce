@@ -20,8 +20,8 @@ class _UsersModel extends Authenticatable
     ];
 
 
-    public function userDetail()
+    public function detail()
     {
-        return $this->hasOne('App\Models\UserDetail');
+        return $this->hasOne('App\Models\UserDetail','user_id');
     }
 }

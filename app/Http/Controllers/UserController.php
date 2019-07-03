@@ -49,7 +49,11 @@ class UserController extends Controller
             'is_active' => 0
         ]);
 
-        $user->userDetail()->save(new UserDetail()); //save yerine create dersek alanları doldururuz.
+        $user->detail()->create([
+            'adress'=>"sdfsdf",
+            'tel_number'=>"223",
+            'number'=>"3434",
+        ]); //save yerine create dersek alanları doldururuz.
         //yukarıda her kullanıcı için user_Detail tablosuna boş bir kayıt eklemektedir.
 
         Mail::to(request('email'))

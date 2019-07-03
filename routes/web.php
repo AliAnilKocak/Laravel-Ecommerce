@@ -23,6 +23,7 @@ Route::group(['prefix' => 'shoppingcart'], function () {
 
 
 Route::get('/pay', 'PayController@index')->name('pay');
+Route::post('/startpay', 'PayController@startPay')->name('startpay');
 
 
 Route::group(['middleware'=>'auth'],function(){

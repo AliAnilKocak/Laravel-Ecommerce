@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $table = 'order';
 
-    protected $fillable = ['shoppingcart_id', 'hire', 'bank', 'price', 'status'];
+    protected $fillable = ['shoppingcart_id', 'hire','full_name','adress','tel_no','number', 'bank', 'price', 'status'];
 
     public function shoppingcart(){
         return $this->belongsTo('App\Models\ShoppingCart');

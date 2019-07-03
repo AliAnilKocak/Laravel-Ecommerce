@@ -18,4 +18,10 @@ class _UsersModel extends Authenticatable
     protected $hidden = [
         'password', 'activation_key',
     ];
+
+
+    public function userDetail()
+    {
+        return $this->hasOne('App\Models\UserDetail');
+    }
 }

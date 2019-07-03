@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartProduct;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\UserDetail;
 
 class UserController extends Controller
 {
@@ -47,6 +48,9 @@ class UserController extends Controller
             'activation_key' => Str::random(60),
             'is_active' => 0
         ]);
+
+        $user->userDetail()->save(new UserDetail()); //save yerine create dersek alanları doldururuz.
+        //yukarıda her kullanıcı için user_Detail tablosuna boş bir kayıt eklemektedir.
 
         Mail::to(request('email'))
             ->send(new UserRegisterMail($user));

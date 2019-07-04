@@ -19,6 +19,11 @@ class ShoppingCart extends Model
         return $this->hasOne('App\Models\Order');
     }
 
+    public function shoppingcartProduct()
+    {
+        return $this->hasMany('App\Models\ShoppingCartProduct','shoppingcart_id');
+    }
+
     public static function active_shoppingcart_id()
     {
         $active_shoppingcart = DB::table('shoppingcart as s')

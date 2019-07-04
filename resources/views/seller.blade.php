@@ -3,48 +3,42 @@
 @section('content')
 <div class="container">
     <div class="bg-content">
-        <h2>Sipariş (SP-00123)</h2>
+        <h2>Sipariş (SP-{{$sellerDetail->id}})</h2>
         <table class="table table-bordererd table-hover">
             <tr>
-                <th>Ürün</th>
+                <th colspan="2">Ürün</th>
                 <th>Tutar</th>
                 <th>Adet</th>
                 <th>Ara Toplam</th>
                 <th>Durum</th>
             </tr>
+            @foreach ($sellerDetail->shoppingcart->shoppingcartProduct as $shoppingcartProduct)
             <tr>
-                <td> <img src="http://lorempixel.com/120/100/food/2"> Ürün adı</td>
-                <td>18.99</td>
-                <td>1</td>
-                <td>18.99</td>
+                <td style="width:120px"> <img src="http://lorempixel.com/120/100/food/2"> Ürün adı</td>
+                <td>   <a href="{{route('product',$shoppingcartProduct->product->slug)}}">{{$shoppingcartProduct->product->name}}</a> </td>
+
+                <td>{{$shoppingcartProduct->price}}</td>
+                <td>{{$shoppingcartProduct->count}}</td>
+                <td>{{$shoppingcartProduct->count* $shoppingcartProduct->price}}</td>
                 <td>
-                    Sipariş alındı, <br> Onaylandı, <br> Kargoya verildi, <br> Bir sorun var. İletişime geçin!
+                    {{$shoppingcartProduct->status}}
                 </td>
             </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>Toplam Tutar (KDV Dahil)</th>
-                <th>18.99</th>
-                <th></th>
-            </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>Kargo</th>
-                <th>Ücretsiz</th>
-                <th></th>
-            </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>Sipariş Toplamı</th>
-                <th>18.99</th>
-                <th></th>
-            </tr>
+            @endforeach
 
+            <tr>
+                <th colspan="4" class="text-right">Toplam Tutar</th>
+                <th colspan="2">{{$sellerDetail->price}} tl</th>
+            </tr>
+            <tr>
+                <th colspan="4" class="text-right">Toplam Tutar (KDVli)</th>
+                <th colspan="2">{{$sellerDetail->price*((100+config('cart.tax'))/100)}} tl</th>
+            </tr>
+            <tr>
+                <th colspan="4" class="text-right">Sipariş Durum</th>
+                <th colspan="2">{{$sellerDetail->status}} tl</th>
+            </tr>
         </table>
     </div>
 </div>
 @endsection
-

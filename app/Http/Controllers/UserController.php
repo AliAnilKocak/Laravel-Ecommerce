@@ -50,9 +50,9 @@ class UserController extends Controller
         ]);
 
         $user->detail()->create([
-            'adress'=>"sdfsdf",
-            'tel_number'=>"223",
-            'number'=>"3434",
+            'adress' => "sdfsdf",
+            'tel_number' => "223",
+            'number' => "3434",
         ]); //save yerine create dersek alanları doldururuz.
         //yukarıda her kullanıcı için user_Detail tablosuna boş bir kayıt eklemektedir.
 
@@ -81,19 +81,26 @@ class UserController extends Controller
             */
 
 
-            $active_shoppingcart_id = ShoppingCart::firstOrCreate(['user_id'=> auth()->id()])->id;
+            $active_shoppingcart_id = ShoppingCart::active_shoppingcart_id();
+            if (is_null($active_shoppingcart_id)) {
+                $active_shoppingcart  = ShoppingCart::create([
+                    'user_id' => auth()->id()
+                ]);
+                $active_shoppingcart_id  = $active_shoppingcart->id;
+                //dd($active_shoppingcart_id); //ekrana basar bundan sonraki kodları da çalıştırmaz
+            }
             session()->put('active_shoppingcart_id', $active_shoppingcart_id);
             //if (Cart::count() > 0) {
-                error_log(Cart::content());
-                foreach (Cart::content() as $cartItem) {
-                    ShoppingCartProduct::updateOrCreate(
-                        ['shoppingcart_id' => $active_shoppingcart_id, 'product_id' => $cartItem->id],
-                        ['count' => $cartItem->qty, 'price' => $cartItem->price, 'status' => 'Beklemede']
-                    );
-                }
-         //   }
+            error_log(Cart::content());
+            foreach (Cart::content() as $cartItem) {
+                ShoppingCartProduct::updateOrCreate(
+                    ['shoppingcart_id' => $active_shoppingcart_id, 'product_id' => $cartItem->id],
+                    ['count' => $cartItem->qty, 'price' => $cartItem->price, 'status' => 'Beklemede']
+                );
+            }
+            //   }
 
-           //Cart::destroy();
+            //Cart::destroy();
             $shoppingCartProducts = ShoppingCartProduct::where('shoppingcart_id', $active_shoppingcart_id)->get();
             error_log($shoppingCartProducts);
             foreach ($shoppingCartProducts as $itemShoppingCart) {

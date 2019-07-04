@@ -4,31 +4,29 @@
 <div class="container">
     <div class="bg-content">
         <h2>Siparişler</h2>
+        @if (count($sellers) == 0)
         <p>Henüz siparişiniz yok</p>
+        @else
         <table class="table table-bordererd table-hover">
             <tr>
                 <th>Sipariş Kodu</th>
-                <th>Sipariş Tarihi</th>
-                <th>KDV</th>
-                <th>Kargo</th>
-                <th>Toplam Tutar</th>
+                <th>Sipariş Tutar</th>
+                <th>Toplam Ürün</th>
                 <th>Durum</th>
-                <th>İşlem</th>
+                <th></th>
             </tr>
+            @foreach ($sellers as $seller)
             <tr>
-                <td>SP-00123</td>
-                <td>25.09.2017</td>
-                <td>2.99</td>
-                <td>0</td>
-                <td>18.99</td>
-                <td>
-                    Sipariş alındı, <br> Onaylandı, <br> Kargoya verildi, <br> Bir sorun var. İletişime geçin!
-                </td>
-                <td><a href="#" class="btn btn-sm btn-success">Detay</a></td>
+                <td>SP-{{$seller->id}}</td>
+                <td>{{$seller->price*((100+config('cart.tax'))/100)}}</td>
+            <td>{{$seller->shoppingcart->shoppingCartProductAmount()}}</td>
+                <td>{{$seller->status}}</td>
+            <td><a href="{{route('seller',$seller->id)}}" class="btn btn-sm btn-success">Detay</a></td>
             </tr>
+            @endforeach
         </table>
+        @endif
     </div>
 </div>
 </div>
 @endsection
-

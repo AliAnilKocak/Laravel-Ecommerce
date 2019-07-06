@@ -13,7 +13,7 @@
     <div class="bg-content">
         <div class="row">
             <div class="col-md-5">
-                <img src="http://lorempixel.com/400/200/food/1">
+                <img src="https://i.gadgets360cdn.com/products/large/1531976003_635_mi_max_3_db.jpg">
                 <hr>
                 <div class="row">
                     <div class="col-xs-3">

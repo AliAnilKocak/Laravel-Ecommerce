@@ -1,5 +1,21 @@
 <?php
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\UserController;
+
+/*
+namespace aşağıdaki grubun altında tüm routelarda controller dosyasını aramak için Manage klasörünün içine bakacak.
+Default olarak Http\Controllers içine bakıyordu. Fakat name spacein değerine Manage yazdığımız için
+Http\Controllers\Manage içinde arayacak ve normal UserController dosyamızla karışmayayacak.*/
+
+
+Route::group(['prefix' => 'manage','namespace'=>'Manage'], function() {
+    Route::get('/', function () {
+        return "admin";
+    });
+    Route::get('login','UserController@login')->name('manage.login');
+    Route::get('homepage','HomePageController@index')->name('manage.homepage');
+});
+
 
 Route::get('/', 'HomePageController@index')->name('homepage');
 

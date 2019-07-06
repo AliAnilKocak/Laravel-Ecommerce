@@ -28,7 +28,7 @@
                 <div class="carousel-inner" role="listbox">
                     @foreach ($products_slider as $index => $product_detail)
                     <div class="item {{$index==0 ? 'active' : ''}}">
-                        <img src="http://lorempixel.com/640/400/food/1" alt="...">
+                        <img src="https://i.gadgets360cdn.com/products/large/1531976003_635_mi_max_3_db.jpg" alt="...">
                         <div class="carousel-caption">
                             {{$product_detail->product->name}}
                         </div>
@@ -51,7 +51,7 @@
                 <div class="panel-body">
                     <a href="{{route('product',$product_day_opportunity->slug)}}">
                         {{$product_day_opportunity->name}}
-                        <img src="http://lorempixel.com/400/485/food/1" class="img-responsive">
+                        <img src="https://i.gadgets360cdn.com/products/large/1531976003_635_mi_max_3_db.jpg" class="img-responsive">
                     </a>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                     @foreach ($products_bestselling as $product_detail)
                     <div class="col-md-3 product">
                             <a href="{{route('product',$product_detail->slug)}}"><img
-                                    src="http://lorempixel.com/400/400/food/1"></a>
+                                    src="https://i.gadgets360cdn.com/products/large/1531976003_635_mi_max_3_db.jpg"></a>
                             <p><a
                                     href="{{route('product',$product_detail->slug)}}">{{$product_detail->name}}</a>
                             </p>
@@ -110,7 +110,7 @@
                     @foreach ($products_reduced as $product_detail)
                     <div class="col-md-3 product">
                             <a href="{{route('product',$product_detail->slug)}}"><img
-                                    src="http://lorempixel.com/400/400/food/1"></a>
+                                    src="https://i.gadgets360cdn.com/products/large/1531976003_635_mi_max_3_db.jpg"></a>
                             <p><a
                                     href="{{route('product',$product_detail->slug)}}">{{$product_detail->name}}</a>
                             </p>

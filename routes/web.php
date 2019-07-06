@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\UserController;
 
@@ -8,12 +9,10 @@ Default olarak Http\Controllers içine bakıyordu. Fakat name spacein değerine 
 Http\Controllers\Manage içinde arayacak ve normal UserController dosyamızla karışmayayacak.*/
 
 
-Route::group(['prefix' => 'manage','namespace'=>'Manage'], function() {
-    Route::get('/', function () {
-        return "admin";
-    });
-    Route::get('login','UserController@login')->name('manage.login');
-    Route::get('homepage','HomePageController@index')->name('manage.homepage');
+Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
+    Route::redirect('/', '/manage/login');
+    Route::match(['get', 'post'], '/login','UserController@login')->name('manage.login');
+    Route::get('homepage', 'HomePageController@index')->name('manage.homepage');
 });
 
 
@@ -42,7 +41,7 @@ Route::get('/pay', 'PayController@index')->name('pay');
 Route::post('/startpay', 'PayController@startPay')->name('startpay');
 
 
-Route::group(['middleware'=>'auth'],function(){
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/sellers', 'SellersController@index')->name('sellers');
     Route::get('/seller/{id}', 'SellersController@detail')->name('seller');
 });
@@ -56,22 +55,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/activation/{key}', 'UserController@activation')->name('activation');
 });
 
-    //Api
+//Api
 
 Route::group(['prefix' => 'api'], function () {
     Route::get('/login', 'UserController@api_login')->name('api.login');
     Route::post('/register', 'UserController@api_register')->name('api.register');
-
 });
-
-
-
-
-
-
-
-
-
-
-
-

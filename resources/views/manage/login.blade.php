@@ -11,12 +11,16 @@
 
 <body>
     <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" method="POST" action="{{route('manage.login')}}">
             <img src="/img/logo.png" class="logo">
+            {{ csrf_field() }}
+            @include('layouts.partials.errors')
+
             <label for="email" class="sr-only">Email address</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required aut>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required
+                aut>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="rememberme" value="1" checked> Remember me

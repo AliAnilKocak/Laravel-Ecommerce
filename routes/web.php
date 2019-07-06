@@ -10,10 +10,20 @@ Http\Controllers\Manage içinde arayacak ve normal UserController dosyamızla ka
 
 
 Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
+
     Route::redirect('/', '/manage/login');
     Route::match(['get', 'post'], '/login','UserController@login')->name('manage.login');
-    Route::get('homepage', 'HomePageController@index')->name('manage.homepage');
+    Route::get('logout', 'UserController@logout')->name('manage.logout');
+
+    Route::group(['middleware' => 'manage'], function () {
+        //kendimize özel middleware tanımladık. Bunu da php artisan make:middleware Manage diyerek manage isminde bir
+        //middleware oluşturduk. Bu middleware dosyasının içindeki handle fonksiyonun gövdesinde gerekli işlemleri yaptık.
+        //kernel.php içerisinde de bu route middleware'ı görmesini sağlayabiliriz.
+        Route::get('homepage', 'HomePageController@index')->name('manage.homepage');
+    });
+
 });
+
 
 
 Route::get('/', 'HomePageController@index')->name('homepage');

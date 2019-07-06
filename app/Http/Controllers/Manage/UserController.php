@@ -42,4 +42,13 @@ class UserController extends Controller
 
         return view('manage.login');
     }
+
+
+    public function logout()
+    {
+        Auth::guard('manage')->logout();
+        request()->session()->flush();
+        request()->session()->regenerate();
+        return redirect()->route('manage.login');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\_UsersModel;
 
 class UserController extends Controller
 {
@@ -17,32 +18,27 @@ class UserController extends Controller
                 'password' => 'required'
             ]);
 
-                $credentials = [
-                    'email' => request('email'),
-                    'password' => request('password'),
-                    'is_admin'=>1
-                ];
+            $credentials = [
+                'email' => request('email'),
+                'password' => request('password'),
+                'is_admin' => 1
+            ];
 
-                //auth()-> yerine Auth::guard('manage') kullandık
-                //admin ve normal kullanıcı için iki farklı login hattı olsun
-                //diye yani admin için giriş yapınca normal kullanıcı için giriş yapmasın diye
-                //bu şekilde bir ayrıştırma yaptık. guard içindeki manage değerini auth.php dosyası içersinden//
-                 //ayarladım. php artisan config:clear komutunu da çalıştırarak bunun aktifleşmesini sağladım
+            //auth()-> yerine Auth::guard('manage') kullandık
+            //admin ve normal kullanıcı için iki farklı login hattı olsun
+            //diye yani admin için giriş yapınca normal kullanıcı için giriş yapmasın diye
+            //bu şekilde bir ayrıştırma yaptık. guard içindeki manage değerini auth.php dosyası içersinden//
+            //ayarladım. php artisan config:clear komutunu da çalıştırarak bunun aktifleşmesini sağladım
 
-                if(Auth::guard('manage')->attempt($credentials,request()->has('remindme'))){
-                    return redirect()->route('manage.homepage');
-                }else{
-                    return back()->withInput()->withErrors(['email'=>"Email hatalı ya da şifre"]);
-                }
-
-
-
-
-         } else { }
+            if (Auth::guard('manage')->attempt($credentials, request()->has('remindme'))) {
+                return redirect()->route('manage.homepage');
+            } else {
+                return back()->withInput()->withErrors(['email' => "Email hatalı ya da şifre"]);
+            }
+        } else { }
 
         return view('manage.login');
     }
-
 
     public function logout()
     {
@@ -50,5 +46,10 @@ class UserController extends Controller
         request()->session()->flush();
         request()->session()->regenerate();
         return redirect()->route('manage.login');
+    }
+
+    public function index(){
+        $list = _UsersModel::orderByDesc('created_at')->paginate(8);
+        return view('manage.user.index',compact('list'));
     }
 }

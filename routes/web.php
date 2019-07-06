@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 namespace aşağıdaki grubun altında tüm routelarda controller dosyasını aramak için Manage klasörünün içine bakacak.
@@ -20,6 +21,14 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
         //middleware oluşturduk. Bu middleware dosyasının içindeki handle fonksiyonun gövdesinde gerekli işlemleri yaptık.
         //kernel.php içerisinde de bu route middleware'ı görmesini sağlayabiliriz.
         Route::get('homepage', 'HomePageController@index')->name('manage.homepage');
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::match(['get', 'post'], '/','UserController@index')->name('manage.user');
+            Route::get('/create', 'UserController@form')->name('manage.user.create');
+            Route::get('/edit/{id}', 'UserController@form')->name('manage.user.edit');
+            Route::post('/save/{id?}', 'UserController@save')->name('manage.user.save');
+            Route::get('/delete/{id}', 'UserController@delete')->name('manage.user.delete');
+        });
     });
 
 });

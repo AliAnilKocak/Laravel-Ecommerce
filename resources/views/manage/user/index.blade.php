@@ -13,19 +13,37 @@
     <table class="table table-hover table-bordered">
         <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+
+                <th>Ad Soyad</th>
+                <th>Email</th>
+                <th>Aktiflik</th>
+                <th>Adminlik</th>
+                <th>Kayıt Tarihi</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
+                @foreach ($list as $item)
             <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
+
+                <td>{{$item->full_name}}</td>
+                <td>{{$item->email}}</td>
+                <td>
+                @if ($item->is_active)
+                <span class="label label-success">Aktif</span>
+                @else
+                <span class="label label-warning">Pasif</span>
+                @endif
+               </td>
+               <td>
+                    @if ($item->is_admin)
+                    <span class="label label-danger">Admin</span>
+                    @else
+                    <span class="label label-primary">Müşteri</span>
+                    @endif
+                   </td>
+                <td>{{$item->created_at}}</td>
+
                 <td style="width: 100px">
                     <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                         <span class="fa fa-pencil"></span>
@@ -35,6 +53,8 @@
                     </a>
                 </td>
             </tr>
+            @endforeach
+
         </tbody>
     </table>
 </div>

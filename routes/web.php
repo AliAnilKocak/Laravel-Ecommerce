@@ -29,6 +29,15 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
             Route::post('/save/{id?}', 'UserController@save')->name('manage.user.save');
             Route::get('/delete/{id}', 'UserController@delete')->name('manage.user.delete');
         });
+
+
+        Route::group(['prefix' => 'category'], function () {
+            Route::match(['get', 'post'], '/','CategoryController@index')->name('manage.category');
+            Route::get('/create', 'CategoryController@form')->name('manage.category.create');
+            Route::get('/edit/{id}', 'CategoryController@form')->name('manage.category.edit');
+            Route::post('/save/{id?}', 'CategoryController@save')->name('manage.category.save');
+            Route::get('/delete/{id}', 'CategoryController@delete')->name('manage.category.delete');
+        });
     });
 
 });

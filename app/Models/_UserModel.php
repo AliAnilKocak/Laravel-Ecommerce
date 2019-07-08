@@ -12,7 +12,7 @@ class _UsersModel extends Authenticatable
     use SoftDeletes;
     protected $table = 'user';
     protected $fillable = [
-        'full_name', 'email', 'password','activation_key','is_active'
+        'full_name', 'email', 'password','activation_key','is_active','is_admin'
     ];
 
     protected $hidden = [
@@ -22,6 +22,7 @@ class _UsersModel extends Authenticatable
 
     public function detail()
     {
-        return $this->hasOne('App\Models\UserDetail','user_id');
+        return $this->hasOne('App\Models\UserDetail','user_id')->withDefault();
+        //withdefault varsayılanir model atar
     }
 }

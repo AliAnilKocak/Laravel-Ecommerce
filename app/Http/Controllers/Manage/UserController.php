@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\_UsersModel;
+use Illuminate\Support\Facades\Hash;
+use App\Models\UserDetail;
 
 class UserController extends Controller
 {
@@ -48,8 +50,69 @@ class UserController extends Controller
         return redirect()->route('manage.login');
     }
 
-    public function index(){
-        $list = _UsersModel::orderByDesc('created_at')->paginate(8);
-        return view('manage.user.index',compact('list'));
+    public function index()
+    {
+        if (request()->filled('search_word')) {
+            request()->flash();// eski form verisi sayfa yenilendiğinde kalması için requestteki bilgileri sessiona flashladık.
+            $search_word = request('search_word');
+            $list = _UsersModel::where('full_name', 'like', "%$search_word%")
+                ->orWhere('email', 'like', "%$search_word%")->orderByDesc('created_at')->paginate(8);
+        } else {
+            $list = _UsersModel::orderByDesc('created_at')->paginate(8);
+        }
+        return view('manage.user.index', compact('list'));
+    }
+
+    public function form($id = 0)
+    {
+        $entry = new _UsersModel;
+        if ($id > 0) {
+            $entry = _UsersModel::find($id);
+        }
+        return view('manage.user.form', compact('entry'));
+    }
+
+    public function save($id = 0)
+    {
+        $this->validate(request(), [
+            'email' => 'required',
+            'full_name' => 'required'
+        ]);
+
+        $data = request()->only('email', 'full_name');
+        if (request()->filled('password')) {
+            $data['password'] = Hash::make(request('password'));
+        }
+
+        $data['is_active'] = request()->has('is_active') ? 1 : 0;
+        $data['is_admin'] = request()->has('is_admin') ? 1 : 0;
+
+        if ($id > 0) { //update
+            $entry = _UsersModel::where('id', $id)->firstOrFail();
+            $entry->update($data);
+        } else { //create
+            $entry = _UsersModel::create($data);
+        }
+
+        UserDetail::updateOrCreate(
+            ['user_id' => $entry->id],
+            [
+                'adress' => request('adress'),
+                'number' => request('number'),
+                'tel_number' => request('tel_number')
+            ]
+        );
+
+        return  redirect()->route('manage.user.edit', $entry->id)
+            ->with('message', ($id > 0 ? "Güncellendi" : "Yeni bir kayıt oluşturuldu"))
+            ->with('message_type', 'success');
+    }
+
+    public function delete($id)
+    {
+        _UsersModel::destroy($id);
+        return redirect()->route('manage.user')
+            ->with('message_type', 'success')
+            ->with('message', 'Kullanıcı silinmiştir.');
     }
 }

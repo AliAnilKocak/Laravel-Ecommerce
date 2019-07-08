@@ -12,7 +12,8 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label for="search_word">Ara</label>
-            <input placeholder="Ad, email ara..."  value="{{old('search_word')}}" type="text" class="form-control form-control-sm" name="search_word" id="search_word">
+            <input placeholder="Ad, email ara..." value="{{old('search_word')}}" type="text"
+                class="form-control form-control-sm" name="search_word" id="search_word">
         </div>
         <button class="btn btn-info" type="submit">Ara</button>
         <a class="btn btn-primary" href="{{route('manage.user')}}">Temizle</a>
@@ -69,8 +70,8 @@
                 </td>
             </tr>
             @endforeach
-
         </tbody>
     </table>
+    {{$list->appends('search_word',old('search_word'))->links()}}
 </div>
 @endsection

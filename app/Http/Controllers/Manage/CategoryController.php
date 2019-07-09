@@ -10,15 +10,28 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (request()->filled('search_word')) {
+        if (request()->filled('search_word') || request()->filled('parent_id')) {
             request()->flash(); // eski form verisi sayfa yenilendiğinde kalması için requestteki bilgileri sessiona flashladık.
             $search_word = request('search_word');
-            $list = Category::with('parent_category')->where('name', 'like', "%$search_word%")
-                ->orWhere('slug', 'like', "%$search_word%")->orderByDesc('created_at')->paginate(8);
+            $parent_id = request('parent_id');
+            $list = Category::with('parent_category')
+                ->where('name', 'like', "%$search_word%")
+                ->Where('parent_id',  $parent_id)
+                ->orderByDesc('created_at')
+                ->paginate(8)
+                ->appends(['search_word'=>$search_word,'parent_id'=>$parent_id]);
+
         } else {
-            $list = Category::with('parent_category')->orderByDesc('created_at')->paginate(8);
+            request()->flush(); // eski form verisi sayfa yenilendiğinde silinmesi için requestteki bilgileri sessiondan kaldırdık.
+
+            $list = Category::with('parent_category')
+                ->orderByDesc('created_at')
+                ->paginate(8);
         }
-        return view('manage.category.index', compact('list'));
+
+        $categories = Category::whereRaw('parent_id is null')->get();
+
+        return view('manage.category.index', compact('list', 'categories'));
     }
 
     public function form($id = 0)

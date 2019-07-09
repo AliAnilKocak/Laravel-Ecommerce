@@ -13,10 +13,10 @@ class CategoryController extends Controller
         if (request()->filled('search_word')) {
             request()->flash(); // eski form verisi sayfa yenilendiğinde kalması için requestteki bilgileri sessiona flashladık.
             $search_word = request('search_word');
-            $list = Category::where('name', 'like', "%$search_word%")
+            $list = Category::with('parent_category')->where('name', 'like', "%$search_word%")
                 ->orWhere('slug', 'like', "%$search_word%")->orderByDesc('created_at')->paginate(8);
         } else {
-            $list = Category::orderByDesc('created_at')->paginate(8);
+            $list = Category::with('parent_category')->orderByDesc('created_at')->paginate(8);
         }
         return view('manage.category.index', compact('list'));
     }

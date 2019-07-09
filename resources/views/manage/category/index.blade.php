@@ -26,7 +26,7 @@
     <table class="table table-hover table-bordered">
         <thead class="thead-dark">
             <tr>
-
+                <th style="color:coral" >Üst Kategori</th>
                 <th>Slug</th>
                 <th>Adı</th>
                 <th>Kayıt Tarihi</th>
@@ -37,6 +37,7 @@
             @foreach ($list as $item)
             <tr>
 
+                <td>{{$item->parent_category->name}}</td>
                 <td>{{$item->slug}}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->created_at}}</td>

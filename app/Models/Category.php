@@ -17,4 +17,10 @@ class Category extends Model
         //Bir kategoriye ait ürünleri getirir. belongToMany M:M ilişkiyi işaret eder.
     }
 
+    public function parent_category(){
+      return   $this->belongsTo('\App\Models\Category','parent_id')->withDefault([
+            'name'=>'Ana Kategori'
+        ]);
+    }
+
 }

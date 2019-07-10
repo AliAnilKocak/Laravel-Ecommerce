@@ -37,6 +37,7 @@ class ProductController extends Controller
             $data['slug'] = str_slug(request('name'));
             request()->merge(['slug' => $data['slug']]);
         }
+        $data_detail = request()->only('show_slider', 'show_day_opportunity', 'show_featured','show_bestselling','show_reduced');
 
 
         $this->validate(request(), [
@@ -51,8 +52,11 @@ class ProductController extends Controller
         if ($id > 0) { //update
             $entry = Product::where('id', $id)->firstOrFail();
             $entry->update($data);
+            $entry->detail()->update($data_detail);
         } else { //create
             $entry = Product::create($data);
+            $entry->detail()->create($data_detail);
+
         }
         return  redirect()->route('manage.product.edit', $entry->id)
             ->with('message', ($id > 0 ? "Güncellendi" : "Yeni bir kayıt oluşturuldu"))

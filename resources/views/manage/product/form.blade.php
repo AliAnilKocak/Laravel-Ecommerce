@@ -35,8 +35,49 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <textarea class="form-control" name="description" id="description" cols="50"
-                        rows="10">{{old('full_name',$entry->description)}}</textarea>
+                        rows="10">{{old('description',$entry->description)}}</textarea>
                 </div>
+            </div>
+
+            <div class="checkbox">
+                <label>
+
+                    <input name="show_slider" value="1" {{old('show_slider',$entry->detail->show_slider) ? 'checked' : '' }}
+                        type="checkbox"> Slider
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+
+                    <input name="show_day_opportunity" value="1"
+                        {{old('show_day_opportunity',$entry->detail->show_day_opportunity) ? 'checked' : '' }}
+                        type="checkbox"> Günün fırsatı
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+
+                    <input name="show_featured" value="1"
+                        {{old('show_featured',$entry->detail->show_featured) ? 'checked' : '' }} type="checkbox"> Yeni Ürün
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+
+                    <input name="show_bestselling" value="1"
+                        {{old('show_bestselling',$entry->detail->show_bestselling) ? 'checked' : '' }} type="checkbox"> Çok
+                    Satılan
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+
+                    <input name="show_reduced" value="1" {{old('show_reduced',$entry->detail->show_reduced) ? 'checked' : '' }}
+                        type="checkbox"> İndirimde
+                </label>
             </div>
 
         </div>

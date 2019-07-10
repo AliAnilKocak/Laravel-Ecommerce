@@ -38,6 +38,15 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
             Route::post('/save/{id?}', 'CategoryController@save')->name('manage.category.save');
             Route::get('/delete/{id}', 'CategoryController@delete')->name('manage.category.delete');
         });
+
+
+        Route::group(['prefix' => 'product'], function () {
+            Route::match(['get', 'post'], '/','ProductController@index')->name('manage.product');
+            Route::get('/create', 'ProductController@form')->name('manage.product.create');
+            Route::get('/edit/{id}', 'ProductController@form')->name('manage.product.edit');
+            Route::post('/save/{id?}', 'ProductController@save')->name('manage.product.save');
+            Route::get('/delete/{id}', 'ProductController@delete')->name('manage.product.delete');
+        });
     });
 
 });

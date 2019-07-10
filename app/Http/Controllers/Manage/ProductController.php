@@ -65,8 +65,12 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        _UsersModel::destroy($id);
-        return redirect()->route('manage.user')
+        $product = Product::find($id);
+        $product->categories()->detach();
+        //$product->detail()->delete(); //softdelete kullandığımız için gerek yok
+        $product->delete();
+
+        return redirect()->route('manage.product')
             ->with('message_type', 'success')
             ->with('message', 'Kullanıcı silinmiştir.');
     }

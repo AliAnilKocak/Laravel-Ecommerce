@@ -6,13 +6,13 @@
 <h3 class="sub-header">Ürünler</h3>
 <div class="well">
     <div class="btn-group pull-right" role="group" aria-label="Basic example">
-        <a href="{{route('manage.product.create')}}" class="btn btn-link"> + Yeni Kategori</a>
+        <a href="{{route('manage.product.create')}}" class="btn btn-link"> + Yeni Ürün</a>
     </div>
     <form method="POST" class="form-inline" action="{{route('manage.product')}}">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="search_word">Ara</label>
-            <input placeholder="Kategori ara" value="{{old('search_word')}}" type="text"
+            <input placeholder="Ürün ara" value="{{old('search_word')}}" type="text"
                 class="form-control form-control-sm" name="search_word" id="search_word">
 
         </div>

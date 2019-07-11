@@ -42,8 +42,8 @@
             <div class="checkbox">
                 <label>
 
-                    <input name="show_slider" value="1" {{old('show_slider',$entry->detail->show_slider) ? 'checked' : '' }}
-                        type="checkbox"> Slider
+                    <input name="show_slider" value="1"
+                        {{old('show_slider',$entry->detail->show_slider) ? 'checked' : '' }} type="checkbox"> Slider
                 </label>
             </div>
 
@@ -60,7 +60,8 @@
                 <label>
 
                     <input name="show_featured" value="1"
-                        {{old('show_featured',$entry->detail->show_featured) ? 'checked' : '' }} type="checkbox"> Yeni Ürün
+                        {{old('show_featured',$entry->detail->show_featured) ? 'checked' : '' }} type="checkbox"> Yeni
+                    Ürün
                 </label>
             </div>
 
@@ -68,18 +69,50 @@
                 <label>
 
                     <input name="show_bestselling" value="1"
-                        {{old('show_bestselling',$entry->detail->show_bestselling) ? 'checked' : '' }} type="checkbox"> Çok
+                        {{old('show_bestselling',$entry->detail->show_bestselling) ? 'checked' : '' }} type="checkbox">
+                    Çok
                     Satılan
                 </label>
             </div>
             <div class="checkbox">
                 <label>
 
-                    <input name="show_reduced" value="1" {{old('show_reduced',$entry->detail->show_reduced) ? 'checked' : '' }}
-                        type="checkbox"> İndirimde
+                    <input name="show_reduced" value="1"
+                        {{old('show_reduced',$entry->detail->show_reduced) ? 'checked' : '' }} type="checkbox">
+                    İndirimde
                 </label>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <select multiple name="categories[]" class="form-control" id="categories">
+                        @foreach ($categories as $category)
+                        <option
+                            {{collect(old('categories',$product_categories))->contains($category->id) ? 'selected' : ''}}
+                            value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
         </div>
 </form>
+@endsection
+
+
+
+@section('head')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+@endsection
+
+@section('footer')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script>
+    $(function(){
+        $('#categories').select2({
+            placeholder: 'Kategori seçiniz'
+        });
+    });
+</script>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -18,16 +19,20 @@ class ProductController extends Controller
         } else {
             $list = Product::orderByDesc('created_at')->paginate(8);
         }
+
         return view('manage.product.index', compact('list'));
     }
 
     public function form($id = 0)
     {
         $entry = new Product;
+        $product_categories = [];
         if ($id > 0) {
             $entry = Product::find($id);
+            $product_categories = $entry->categories()->pluck('category_id')->all();
         }
-        return view('manage.product.form', compact('entry'));
+        $categories = Category::all();
+        return view('manage.product.form', compact('entry','categories','product_categories'));
     }
 
     public function save($id = 0)
@@ -49,13 +54,18 @@ class ProductController extends Controller
         /*if(Category::whereSlug($data['slug'])->count() > 0)
         return back()->withInput()->withErrors(['slug'=>'Slug değer daha önceden kayıtlıdır']);*/
 
+            $categories = request('categories');
+            //dd($categories);
+
         if ($id > 0) { //update
             $entry = Product::where('id', $id)->firstOrFail();
             $entry->update($data);
             $entry->detail()->update($data_detail);
+            $entry->categories()->sync($categories); //select2 ile seçilen kategorileri güncellemeyi sağlar. Senkronize eder.
         } else { //create
             $entry = Product::create($data);
             $entry->detail()->create($data_detail);
+            $entry->categories()->attach($categories); //select2 ile seçilen kategorileri eklemeyi sağlar.
 
         }
         return  redirect()->route('manage.product.edit', $entry->id)

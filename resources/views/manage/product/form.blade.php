@@ -2,7 +2,7 @@
 @section('title','Ana Sayfa')
 @section('content')
 <h1 class="page-header">Ürün Yönetimi</h1>
-<form method="post" action="{{route('manage.product.save',@$entry->id)}}">
+<form enctype="multipart/form-data" method="post" action="{{route('manage.product.save',@$entry->id)}}">
     <div class="pull-right">
         <button type="submit" class="btn btn-primary">
             {{@$entry->id>0 ? "Güncelle" : "Kaydet" }}
@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-6">
+                <div class="col-sm-9">
                     <textarea class="form-control" name="description" id="description" cols="50"
-                        rows="10">{{old('description',$entry->description)}}</textarea>
+                        rows="20">{{old('description',$entry->description)}}</textarea>
                 </div>
             </div>
 
@@ -96,6 +96,14 @@
             </div>
 
         </div>
+
+        <div class="form-group">
+            @if ($entry->detail->image_url!=null)
+                <img src="/uploads/products/{{$entry->detail->image_url}}"  style="height: 100px" class="thumbnail pull-left" alt="">
+            @endif
+            <label for="product_image">Ürün Resmi</label>
+            <input type="file" name="product_image" id="product_image">
+        </div>
 </form>
 @endsection
 
@@ -106,13 +114,22 @@
 @endsection
 
 @section('footer')
-
+<script src="//cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script>
     $(function(){
         $('#categories').select2({
             placeholder: 'Kategori seçiniz'
         });
+
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+          };
+
+        CKEDITOR.replace('description', options);
     });
 </script>
 @endsection

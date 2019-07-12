@@ -27,6 +27,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>Slug</th>
+                <th>Resmi</th>
                 <th>Adı</th>
                 <th>Fiyatı</th>
                 <th>Kayıt Tarihi</th>
@@ -46,6 +47,7 @@
 
 
                 <td>{{$item->slug}}</td>
+                <td> <img src="/uploads/products/{{$item->detail->image_url}}"  style="height: 100px" class="thumbnail pull-left" alt="">   </td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->created_at}}</td>

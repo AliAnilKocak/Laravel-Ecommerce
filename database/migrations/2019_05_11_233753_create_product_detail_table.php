@@ -21,6 +21,7 @@ class CreateProductDetailTable extends Migration
             $table->boolean('show_featured')->default(0);
             $table->boolean('show_bestselling')->default(0);
             $table->boolean('show_reduced')->default(0);
+            $table->string('image_url',50);
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
 

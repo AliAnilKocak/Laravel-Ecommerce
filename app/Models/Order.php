@@ -16,4 +16,5 @@ class Order extends Model
     public function shoppingcart(){
         return $this->belongsTo('App\Models\ShoppingCart');
     }
+  
 }

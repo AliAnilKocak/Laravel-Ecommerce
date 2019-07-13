@@ -47,6 +47,15 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage'], function () {
             Route::post('/save/{id?}', 'ProductController@save')->name('manage.product.save');
             Route::get('/delete/{id}', 'ProductController@delete')->name('manage.product.delete');
         });
+
+
+        Route::group(['prefix' => 'order'], function () {
+            Route::match(['get', 'post'], '/','OrderController@index')->name('manage.order');
+            Route::get('/create', 'OrderController@form')->name('manage.order.create');
+            Route::get('/edit/{id}', 'OrderController@form')->name('manage.order.edit');
+            Route::post('/save/{id?}', 'OrderController@save')->name('manage.order.save');
+            Route::get('/delete/{id}', 'OrderController@delete')->name('manage.order.delete');
+        });
     });
 
 });

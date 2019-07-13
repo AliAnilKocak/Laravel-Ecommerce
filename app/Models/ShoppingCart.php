@@ -45,4 +45,8 @@ class ShoppingCart extends Model
     {
         return DB::table('shoppingcart_product')->where('shoppingcart_id', $this->id)->sum('count');
     }
+
+    public function user(){
+        return $this->belongsTo('App\_UsersModel');
+    }
 }
